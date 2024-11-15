@@ -27,28 +27,33 @@ public class BookIssueAndReturnWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        issueButton = new javax.swing.JButton();
+        returnButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 30)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BookIssue.png"))); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 30)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BookReturn.png"))); // NOI18N
-        jButton2.setPreferredSize(new java.awt.Dimension(220, 50));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        issueButton.setFont(new java.awt.Font("Segoe UI Black", 1, 30)); // NOI18N
+        issueButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BookIssue.png"))); // NOI18N
+        issueButton.setPreferredSize(new java.awt.Dimension(200, 50));
+        issueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                issueButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
+        jPanel2.add(issueButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
+
+        returnButton.setFont(new java.awt.Font("Segoe UI Black", 1, 30)); // NOI18N
+        returnButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BookReturn.png"))); // NOI18N
+        returnButton.setPreferredSize(new java.awt.Dimension(220, 50));
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/start or addremove.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 490));
@@ -68,9 +73,19 @@ public class BookIssueAndReturnWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        BookReturnWindow returnBook = new BookReturnWindow();
+        setVisible(false);
+        returnBook.setVisible(true);
+    }//GEN-LAST:event_returnButtonActionPerformed
+
+    private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
+        // TODO add your handling code here:
+        BookIssueWindow issue = new BookIssueWindow();
+        setVisible(false);
+        issue.setVisible(true);
+    }//GEN-LAST:event_issueButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,9 +123,9 @@ public class BookIssueAndReturnWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton issueButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton returnButton;
     // End of variables declaration//GEN-END:variables
 }
