@@ -14,6 +14,7 @@ com\mycompany\librarymanagementsystem\SearchInformation.class
 com\mycompany\librarymanagementsystem\DASHBOARD$3.class
 com\mycompany\librarymanagementsystem\ManageMembersWindow.class
 com\mycompany\librarymanagementsystem\ADD_REMOVE.class
+com\mycompany\librarymanagementsystem\SearchWindow$3.class
 com\mycompany\librarymanagementsystem\ADD.class
 com\mycompany\librarymanagementsystem\LOGIN.class
 com\mycompany\librarymanagementsystem\AvailableBooks$3.class
