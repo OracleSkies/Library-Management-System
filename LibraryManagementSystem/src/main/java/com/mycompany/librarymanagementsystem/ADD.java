@@ -4,6 +4,11 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -28,11 +33,11 @@ public class ADD extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         Back = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        AddButton = new javax.swing.JButton();
+        TitleField = new javax.swing.JTextField();
+        AuthorField = new javax.swing.JTextField();
+        BookNumberField = new javax.swing.JTextField();
+        CategoryCombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
@@ -48,14 +53,19 @@ public class ADD extends javax.swing.JFrame {
         });
         getContentPane().add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 200, 80));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Add1.png"))); // NOI18N
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 200, 80));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 280, 30));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 280, 30));
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 280, 30));
+        AddButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Add1.png"))); // NOI18N
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AddButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 200, 80));
+        getContentPane().add(TitleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 280, 30));
+        getContentPane().add(AuthorField, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 280, 30));
+        getContentPane().add(BookNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 280, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fiction", "Non-Fiction", "Journal", "Periodical" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 280, 30));
+        CategoryCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fiction", "Non-Fiction", "Journal", "Periodical" }));
+        getContentPane().add(CategoryCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 280, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add books.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -71,6 +81,26 @@ public class ADD extends javax.swing.JFrame {
         dash.setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        // TODO add your handling code here:
+        String bookNumber = BookNumberField.getText();
+        String title = TitleField.getText();
+        String author = AuthorField.getText();
+        String category = (String) CategoryCombo.getSelectedItem();
+        saveToFile(title,author,bookNumber,category);
+    }//GEN-LAST:event_AddButtonActionPerformed
+
+    private void saveToFile(String title, String author, String bookNumber, String category) {
+        try (var writer = new BufferedWriter(new FileWriter("Library.txt", true))) {
+            writer.write(title + "," + author  + "," +  bookNumber + "," + category + "," + "Yes");
+            writer.newLine();
+
+            JOptionPane.showMessageDialog(this, title + " is added successfully in the library!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving to file", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -107,13 +137,13 @@ public class ADD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddButton;
+    private javax.swing.JTextField AuthorField;
     private javax.swing.JButton Back;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField BookNumberField;
+    private javax.swing.JComboBox<String> CategoryCombo;
+    private javax.swing.JTextField TitleField;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
