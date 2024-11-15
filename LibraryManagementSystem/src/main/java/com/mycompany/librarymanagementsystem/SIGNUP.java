@@ -4,6 +4,11 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -27,11 +32,11 @@ public class SIGNUP extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Username = new javax.swing.JTextField();
+        Cpass = new javax.swing.JPasswordField();
+        Password = new javax.swing.JPasswordField();
+        BackBotunAksyon = new javax.swing.JButton();
+        ConfirmButtonAction = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -41,27 +46,44 @@ public class SIGNUP extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 310, 30));
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        Username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                UsernameActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 310, 30));
-        getContentPane().add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 310, 30));
+        getContentPane().add(Username, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 310, 30));
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 180, 80));
+        Cpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CpassActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Cpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 310, 30));
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Confirm.png"))); // NOI18N
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 230, 80));
+        Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 310, 30));
+
+        BackBotunAksyon.setBackground(new java.awt.Color(51, 51, 51));
+        BackBotunAksyon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BackBotunAksyon.setForeground(new java.awt.Color(255, 255, 255));
+        BackBotunAksyon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        getContentPane().add(BackBotunAksyon, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 180, 80));
+
+        ConfirmButtonAction.setBackground(new java.awt.Color(51, 51, 51));
+        ConfirmButtonAction.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        ConfirmButtonAction.setForeground(new java.awt.Color(255, 255, 255));
+        ConfirmButtonAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Confirm.png"))); // NOI18N
+        ConfirmButtonAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmButtonActionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ConfirmButtonAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 230, 80));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,10 +97,44 @@ public class SIGNUP extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void CpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CpassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_CpassActionPerformed
 
+    private void ConfirmButtonActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionActionPerformed
+        // TODO add your handling code here:
+        String Uname = Username.getText();
+        String Pass = Password.getText();
+        String Cpassword = Cpass.getText();
+        
+        //Checks if userinput is accurate
+        
+        if (!Pass.equals(Cpassword)){
+            
+           JOptionPane.showMessageDialog("Passwords don't match","Error",JOptionPane.ERROR_MESSAGE);
+           return;
+        }
+    }//GEN-LAST:event_ConfirmButtonActionActionPerformed
+
+    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameActionPerformed
+
+    private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordActionPerformed
+    
+    private void saveToFile(String username, String password) {
+        try (var writer = new BufferedWriter(new FileWriter("Accounts.txt", true))) {
+            writer.write(username + "," + password + ",");
+            writer.newLine();
+
+            JOptionPane.showMessageDialog(this, "Account created successfully!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving to file", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -115,13 +171,13 @@ public class SIGNUP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton BackBotunAksyon;
+    private javax.swing.JButton ConfirmButtonAction;
+    private javax.swing.JPasswordField Cpass;
+    private javax.swing.JPasswordField Password;
+    private javax.swing.JTextField Username;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
