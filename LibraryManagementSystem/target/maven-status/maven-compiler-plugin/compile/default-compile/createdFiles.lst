@@ -1,4 +1,5 @@
 com\mycompany\librarymanagementsystem\DASHBOARD$5.class
+com\mycompany\librarymanagementsystem\ManageMembersWindow$3.class
 com\mycompany\librarymanagementsystem\SIGNUP.class
 com\mycompany\librarymanagementsystem\SearchInformation$1.class
 com\mycompany\librarymanagementsystem\AvailableBooks$1.class
@@ -14,6 +15,7 @@ com\mycompany\librarymanagementsystem\ManageMembersWindow.class
 com\mycompany\librarymanagementsystem\ADD_REMOVE.class
 com\mycompany\librarymanagementsystem\ADD.class
 com\mycompany\librarymanagementsystem\LOGIN.class
+com\mycompany\librarymanagementsystem\AvailableBooks$3.class
 com\mycompany\librarymanagementsystem\AvailableBooks.class
 com\mycompany\librarymanagementsystem\Start$3.class
 com\mycompany\librarymanagementsystem\BookIssueWindow.class
