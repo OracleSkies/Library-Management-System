@@ -4,6 +4,14 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author User
@@ -11,11 +19,51 @@ package com.mycompany.librarymanagementsystem;
 public class AvailableBooks extends javax.swing.JFrame {
 
     /**
-     * Creates new form Availble_Books
+     * Creates new form Available_Books
      */
     public AvailableBooks() {
         initComponents();
+        loadDataFromFile("books.txt"); // Change "books.txt" to your file path
     }
+    
+    private void loadDataFromFile(String filePath) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        // Load borrowed book titles into a Set for fast lookup
+        Set<String> borrowedBooks = loadBorrowedBooks("borrowed.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(","); // Assuming data is comma-separated
+                if (data.length == 5) { // Ensure there are 5 columns
+                    String title = data[0].trim();
+                    // Check if the book title is in the borrowed list
+                    if (borrowedBooks.contains(title)) {
+                        data[4] = "NO"; // Update availability to "NO" if the book is borrowed
+                    } else {
+                        data[4] = "YES"; // Update availability to "YES" if the book is available
+                    }
+                    model.addRow(data); // Add row to the table model
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Set<String> loadBorrowedBooks(String filePath) {
+        Set<String> borrowedBooks = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                borrowedBooks.add(line.trim()); // Assuming borrowed.txt contains one book title per line
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return borrowedBooks;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,18 +76,16 @@ public class AvailableBooks extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        backButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Title", "Author", "Category", "Book Number", "Availability"
@@ -57,13 +103,8 @@ public class AvailableBooks extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 550, 300));
 
-        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 200, 70));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 200, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/available books.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -72,16 +113,10 @@ public class AvailableBooks extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-        DASHBOARD dash = new DASHBOARD();
-        setVisible(false);
-        dash.setVisible(true);
-    }//GEN-LAST:event_backButtonActionPerformed
-
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -116,7 +151,7 @@ public class AvailableBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

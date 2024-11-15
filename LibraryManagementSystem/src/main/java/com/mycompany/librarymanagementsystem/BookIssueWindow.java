@@ -4,6 +4,12 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author yan
@@ -26,24 +32,30 @@ public class BookIssueWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        backButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 200, 80));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 200, 80));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Search.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, 80));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 192, 410, 30));
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 252, 410, 30));
@@ -55,12 +67,84 @@ public class BookIssueWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-        DASHBOARD dash = new DASHBOARD();
-        setVisible(false);
-        dash.setVisible(true);
-    }//GEN-LAST:event_backButtonActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String searchTitle = jTextField1.getText().trim(); // Get the book title from input
+        String inputFilePath = "books.txt"; // Path to your books list file
+        String borrowedFilePath = "borrowed.txt"; // Path to your borrowed books list file
+
+        if (searchTitle.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Please enter a book title to search.", 
+                    "Input Error", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        boolean bookFound = false;
+        boolean isBorrowed = false;
+
+        // Check if the book is already borrowed
+        try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath))) {
+            String line;
+            while ((line = borrowedReader.readLine()) != null) {
+                if (line.contains(searchTitle)) { // Check if the title exists in the borrowed list
+                    isBorrowed = true;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "An error occurred while reading borrowed books: " + e.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // If the book is borrowed, show an error message
+        if (isBorrowed) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "The book is already borrowed and is not available: " + searchTitle, 
+                    "Book Not Available", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // If the book is not borrowed, check if it exists in the available books list and mark it as borrowed
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(borrowedFilePath, true))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(searchTitle)) { // Match found in available books
+                    writer.write(line); // Add the book to the borrowed file
+                    writer.newLine(); // Add a new line in the borrowed file
+                    bookFound = true;
+                    break;
+                }
+            }
+
+            if (bookFound) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                        "Book found and added to borrowed list:\n" + searchTitle, 
+                        "Success", 
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                        "Book not found: " + searchTitle, 
+                        "Not Found", 
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "An error occurred: " + e.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,7 +182,7 @@ public class BookIssueWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
