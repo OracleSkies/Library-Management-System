@@ -4,6 +4,11 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -26,9 +31,9 @@ public class LOGIN extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        UserName = new javax.swing.JTextField();
+        Password = new javax.swing.JPasswordField();
+        ConfirmButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -37,16 +42,16 @@ public class LOGIN extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 310, 30));
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 310, 30));
+        getContentPane().add(UserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 310, 30));
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 310, 30));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Confirm.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ConfirmButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Confirm.png"))); // NOI18N
+        ConfirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ConfirmButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 230, 80));
+        getContentPane().add(ConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 230, 80));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
         backButton.setText("jButton2");
@@ -69,9 +74,14 @@ public class LOGIN extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String Name = UserName.getText();
+        String Pass = Password.getText();
+        loginAccount(Name,Pass);
+
+    }//GEN-LAST:event_ConfirmButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
@@ -79,6 +89,30 @@ public class LOGIN extends javax.swing.JFrame {
         setVisible(false);
         start.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private String loginAccount(String UserName, String Pass){
+
+          try (BufferedReader reader = new BufferedReader(new FileReader("Accounts.txt"))){
+              String line;
+              boolean accountFound = false;
+              while ((line = reader.readLine()) != null){
+                  String[] parts = line.split(",");
+                  if(parts[0].equals(UserName) && parts[1].equals(Pass)){
+                      accountFound = true;
+                      DASHBOARD dash = new DASHBOARD();
+                      setVisible(false);
+                      dash.setVisible(true);
+                     break;
+                    }
+                }
+              if (!accountFound){
+                JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
+              }
+          } catch (IOException e) {
+              JOptionPane.showMessageDialog(this, "System Error", "Error", JOptionPane.ERROR_MESSAGE);
+          }
+        return null;
+    }
 
     /**
      * @param args the command line arguments
@@ -116,11 +150,11 @@ public class LOGIN extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ConfirmButton;
+    private javax.swing.JPasswordField Password;
+    private javax.swing.JTextField UserName;
     private javax.swing.JButton backButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
