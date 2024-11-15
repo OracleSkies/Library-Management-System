@@ -4,6 +4,14 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yan
@@ -15,8 +23,54 @@ public class BookRemoveWindow extends javax.swing.JFrame {
      */
     public BookRemoveWindow() {
         initComponents();
+        // Add ActionListener to the Remove button
+        jButton1.addActionListener(e -> removeBookFromFile());
     }
+    
+    private void removeBookFromFile() {
+        String bookId = jTextField1.getText().trim(); // Get the input from the text field
 
+        if (bookId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a book ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        File originalFile = new File("books.txt");
+        File tempFile = new File("books_temp.txt");
+
+        boolean isRemoved = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the book ID
+                if (line.contains(bookId)) {
+                    isRemoved = true; // Mark as removed
+                    continue; // Skip writing this line to the temp file
+                }
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error processing file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         // Replace the original file with the temp file
+        if (isRemoved) {
+            if (originalFile.delete()) {
+                tempFile.renameTo(originalFile);
+                JOptionPane.showMessageDialog(this, "Book removed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error updating the file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            tempFile.delete(); // Cleanup temp file
+            JOptionPane.showMessageDialog(this, "Book ID not found.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +87,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -58,6 +113,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
