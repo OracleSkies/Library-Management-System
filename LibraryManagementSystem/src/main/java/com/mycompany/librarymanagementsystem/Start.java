@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.cpp106librarymanagementsystem;
+package com.mycompany.librarymanagementsystem;
 
 /**
  *
@@ -26,18 +26,28 @@ public class Start extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        LogIn = new javax.swing.JButton();
+        SignUp = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_LogIn.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
+        LogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_LogIn.png"))); // NOI18N
+        LogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogInActionPerformed(evt);
+            }
+        });
+        getContentPane().add(LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_SignIn.png"))); // NOI18N
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
+        SignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_SignIn.png"))); // NOI18N
+        SignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignUpActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/start or addremove.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -45,6 +55,20 @@ public class Start extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpActionPerformed
+        // TODO add your handling code here:
+        SIGNUP signup = new SIGNUP();
+        setVisible(false);
+        signup.setVisible(true);
+    }//GEN-LAST:event_SignUpActionPerformed
+
+    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
+        // TODO add your handling code here:
+        LOGIN login = new LOGIN();
+        setVisible(false);
+        login.setVisible(true);
+    }//GEN-LAST:event_LogInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -82,8 +106,8 @@ public class Start extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton LogIn;
+    private javax.swing.JButton SignUp;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

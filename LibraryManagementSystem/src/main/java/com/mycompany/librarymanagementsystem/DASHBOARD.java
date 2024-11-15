@@ -27,12 +27,12 @@ public class DASHBOARD extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        AddRemove = new javax.swing.JButton();
+        Search = new javax.swing.JButton();
+        BorrowReturn = new javax.swing.JButton();
+        Logout = new javax.swing.JButton();
+        Manage = new javax.swing.JButton();
+        AvailBooks = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jButton4.setText("jButton4");
@@ -41,28 +41,53 @@ public class DASHBOARD extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddRemove.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 150, 107));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_Search.png"))); // NOI18N
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 107));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BorrowReturn.png"))); // NOI18N
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 150, 107));
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_LogOut.png"))); // NOI18N
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 150, 107));
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_ManageMembers.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        AddRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddRemove.png"))); // NOI18N
+        AddRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                AddRemoveActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 150, 107));
+        getContentPane().add(AddRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 150, 107));
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_ViewBooks.png"))); // NOI18N
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 150, 107));
+        Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_Search.png"))); // NOI18N
+        Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 107));
+
+        BorrowReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BorrowReturn.png"))); // NOI18N
+        BorrowReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorrowReturnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BorrowReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 150, 107));
+
+        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_LogOut.png"))); // NOI18N
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 150, 107));
+
+        Manage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_ManageMembers.png"))); // NOI18N
+        Manage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManageActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Manage, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 150, 107));
+
+        AvailBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_ViewBooks.png"))); // NOI18N
+        AvailBooks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AvailBooksActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AvailBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 150, 107));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dashboard.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -71,9 +96,47 @@ public class DASHBOARD extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void ManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        ManageMembersWindow manageWindow = new ManageMembersWindow();
+        setVisible(false);
+        manageWindow.setVisible(true);
+    }//GEN-LAST:event_ManageActionPerformed
+
+    private void AddRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRemoveActionPerformed
+        // TODO add your handling code here:
+        ADD_REMOVE addRemove = new ADD_REMOVE();
+        setVisible(false);
+        addRemove.setVisible(true);
+    }//GEN-LAST:event_AddRemoveActionPerformed
+
+    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
+        // TODO add your handling code here:
+        SearchWindow searchWin = new SearchWindow();
+        setVisible(false);
+        searchWin.setVisible(true);
+    }//GEN-LAST:event_SearchActionPerformed
+
+    private void BorrowReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrowReturnActionPerformed
+        // TODO add your handling code here:
+        BookIssueAndReturnWindow issueReturn = new BookIssueAndReturnWindow();
+        setVisible(false);
+        issueReturn.setVisible(true);
+    }//GEN-LAST:event_BorrowReturnActionPerformed
+
+    private void AvailBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvailBooksActionPerformed
+        // TODO add your handling code here:
+        AvailableBooks availBooks = new AvailableBooks();
+        setVisible(false);
+        availBooks.setVisible(true);
+    }//GEN-LAST:event_AvailBooksActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        // TODO add your handling code here:
+        LOGIN login = new LOGIN();
+        setVisible(false);
+        login.setVisible(true);
+    }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,13 +174,13 @@ public class DASHBOARD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton AddRemove;
+    private javax.swing.JButton AvailBooks;
+    private javax.swing.JButton BorrowReturn;
+    private javax.swing.JButton Logout;
+    private javax.swing.JButton Manage;
+    private javax.swing.JButton Search;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
