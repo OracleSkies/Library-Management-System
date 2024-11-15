@@ -46,7 +46,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/BG_ConfirmButton.jpg"/>
+          <Image iconType="3" name="/images/Dark_Confirm.png"/>
         </Property>
       </Properties>
       <Events>
@@ -54,14 +54,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="380" width="200" height="80"/>
+          <AbsoluteConstraints x="80" y="380" width="230" height="80"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/BG_BackButon.jpg"/>
+          <Image iconType="3" name="/images/Dark_Back.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jButton2"/>
       </Properties>

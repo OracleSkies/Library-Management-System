@@ -36,7 +36,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/addremove.png"/>
+          <Image iconType="3" name="/images/Light_AddRemove.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -48,7 +48,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/search.png"/>
+          <Image iconType="3" name="/images/Light_Search.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -60,7 +60,7 @@
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/borrowreturn.png"/>
+          <Image iconType="3" name="/images/Light_BorrowReturn.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -72,7 +72,7 @@
     <Component class="javax.swing.JButton" name="jButton5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/logout.png"/>
+          <Image iconType="3" name="/images/Light_LogOut.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -84,7 +84,7 @@
     <Component class="javax.swing.JButton" name="jButton6">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/manage members.png"/>
+          <Image iconType="3" name="/images/Light_ManageMembers.png"/>
         </Property>
       </Properties>
       <Events>
@@ -99,7 +99,7 @@
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/view all books.png"/>
+          <Image iconType="3" name="/images/Light_ViewBooks.png"/>
         </Property>
       </Properties>
       <Constraints>

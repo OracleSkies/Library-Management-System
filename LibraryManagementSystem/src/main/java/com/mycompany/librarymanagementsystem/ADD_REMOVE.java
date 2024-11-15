@@ -33,10 +33,10 @@ public class ADD_REMOVE extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Add.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddBooks.png"))); // NOI18N
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Remove.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_RemoveBooks.png"))); // NOI18N
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/start or addremove.png"))); // NOI18N

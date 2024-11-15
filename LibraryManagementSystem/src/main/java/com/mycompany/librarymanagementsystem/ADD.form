@@ -45,7 +45,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/BG_BackButon.jpg"/>
+          <Image iconType="3" name="/images/Dark_Back.png"/>
         </Property>
       </Properties>
       <Constraints>
