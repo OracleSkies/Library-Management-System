@@ -26,18 +26,23 @@ public class ADD_REMOVE extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        removeBook = new javax.swing.JButton();
+        addBook = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_RemoveBooks.png"))); // NOI18N
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
+        removeBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_RemoveBooks.png"))); // NOI18N
+        getContentPane().add(removeBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddBooks.png"))); // NOI18N
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
+        addBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddBooks.png"))); // NOI18N
+        addBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBookActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 250, 179));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/start or addremove.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -45,6 +50,13 @@ public class ADD_REMOVE extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookActionPerformed
+        // TODO add your handling code here:
+        ADD add = new ADD();
+        setVisible(false);
+        add.setVisible(true);
+    }//GEN-LAST:event_addBookActionPerformed
 
     /**
      * @param args the command line arguments
@@ -82,8 +94,8 @@ public class ADD_REMOVE extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton addBook;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton removeBook;
     // End of variables declaration//GEN-END:variables
 }
