@@ -103,7 +103,7 @@ public class SIGNUP extends javax.swing.JFrame {
 
     private void ConfirmButtonActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionActionPerformed
         // TODO add your handling code here:
-        String Uname = Username.getText();
+        String username = Username.getText();
         String Pass = Password.getText();
         String Cpassword = Cpass.getText();
         
@@ -111,7 +111,7 @@ public class SIGNUP extends javax.swing.JFrame {
         
         if (!Pass.equals(Cpassword)){
             
-           JOptionPane.showMessageDialog("Passwords don't match","Error",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Passwords don't match","Error",JOptionPane.ERROR_MESSAGE);
            return;
         }
     }//GEN-LAST:event_ConfirmButtonActionActionPerformed
