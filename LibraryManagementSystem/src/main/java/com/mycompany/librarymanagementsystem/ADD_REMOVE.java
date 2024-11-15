@@ -34,6 +34,11 @@ public class ADD_REMOVE extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         removeBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_RemoveBooks.png"))); // NOI18N
+        removeBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBookActionPerformed(evt);
+            }
+        });
         getContentPane().add(removeBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 250, 179));
 
         addBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_AddBooks.png"))); // NOI18N
@@ -57,6 +62,13 @@ public class ADD_REMOVE extends javax.swing.JFrame {
         setVisible(false);
         add.setVisible(true);
     }//GEN-LAST:event_addBookActionPerformed
+
+    private void removeBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBookActionPerformed
+        // TODO add your handling code here:
+        BookRemoveWindow remove = new BookRemoveWindow();
+        setVisible(false);
+        remove.setVisible(true);
+    }//GEN-LAST:event_removeBookActionPerformed
 
     /**
      * @param args the command line arguments
