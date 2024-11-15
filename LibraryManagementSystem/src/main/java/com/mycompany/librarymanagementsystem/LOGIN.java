@@ -4,6 +4,9 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -82,16 +85,30 @@ public class LOGIN extends javax.swing.JFrame {
         // TODO add your handling code here:
         String Name = UserName.getText();
         String Pass = Password.getText();
-        
-        //call loginAccount(name,pass)
-        
-    //private String method
-        
-        
-        
-        
+        loginAccount(Name,Pass);
         
     }//GEN-LAST:event_ConfirmbuttonActionPerformed
+    private String loginAccount(String UserName, String Pass){
+
+          try (BufferedReader reader = new BufferedReader(new FileReader("Accounts.txt"))){
+              String line;
+              boolean accountFound = false;
+              while ((line = reader.readLine()) != null){
+                  String[] parts = line.split(",");
+                  if(parts[0].equals(UserName) && parts[1].equals(Pass)){
+                      accountFound = true;
+                      System.out.println("logged in succesfully");
+                     break;
+                    }
+                }
+              if (!accountFound){
+                JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
+              }
+          } catch (IOException e) {
+              System.out.println("error");
+          }
+        return null;
+    }
 
     private void UserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameActionPerformed
         // TODO add your handling code here:
