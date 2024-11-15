@@ -136,7 +136,7 @@ public class SIGNUP extends javax.swing.JFrame {
     
     private void saveToFile(String username, String password) {
         try (var writer = new BufferedWriter(new FileWriter("Accounts.txt", true))) {
-            writer.write(username + "," + password);
+            writer.write(username + "," + password + ",");
             writer.newLine();
 
             JOptionPane.showMessageDialog(this, "Account created successfully!");
