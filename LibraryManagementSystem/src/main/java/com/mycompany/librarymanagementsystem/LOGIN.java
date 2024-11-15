@@ -83,12 +83,9 @@ public class LOGIN extends javax.swing.JFrame {
         String Name = UserName.getText();
         String Pass = Password.getText();
         
-        if (!Name||Pass.equals(Pass,Name)) {
-            
-            JOptionPane.showMessageDialog(this,"Passwords don't match try again","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-                   
-        }
+        //call loginAccount(name,pass)
+        
+    //private String method
         
         
         
