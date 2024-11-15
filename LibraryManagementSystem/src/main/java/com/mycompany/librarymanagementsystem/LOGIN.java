@@ -4,6 +4,9 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +32,7 @@ public class LOGIN extends javax.swing.JFrame {
     private void initComponents() {
 
         UserName = new javax.swing.JTextField();
-        Password = new javax.swing.JPasswordField();
+        PassWord = new javax.swing.JPasswordField();
         Confirmbutton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -47,12 +50,12 @@ public class LOGIN extends javax.swing.JFrame {
         });
         getContentPane().add(UserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 310, 30));
 
-        Password.addActionListener(new java.awt.event.ActionListener() {
+        PassWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordActionPerformed(evt);
+                PassWordActionPerformed(evt);
             }
         });
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 310, 30));
+        getContentPane().add(PassWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 310, 30));
 
         Confirmbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Confirm.png"))); // NOI18N
         Confirmbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -80,15 +83,31 @@ public class LOGIN extends javax.swing.JFrame {
 
     private void ConfirmbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmbuttonActionPerformed
         // TODO add your handling code here:
-        String Name = UserName.getText();
-        String Pass = Password.getText();
-        
-        if (!Name||Pass.equals(Pass,Name)) {
-            
-            JOptionPane.showMessageDialog(this,"Passwords don't match try again","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-                   
+        String username = UserName.getText();
+        String pass = Password.getText();
+
         }
+   
+
+    private void loginAccount(String UserName, String Password){
+
+          try (BufferedReader reader = new BufferedReader(new FileReader("Accounts.txt"))){
+              String line;
+              boolean accountFound = false;
+              while ((line = reader.readLine()) != null){
+                  String[] parts = line.split(",");
+                  if(parts[0].equals(UserName) && parts[1].equals(Password)){
+                      accountFound = true;
+                     break;
+                    }
+                }
+              if (!accountFound){
+                JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
+              }
+          } catch (IOException e) {
+              System.out.println("error");
+          }
+    }
         
         
         
@@ -100,9 +119,9 @@ public class LOGIN extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UserNameActionPerformed
 
-    private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
+    private void PassWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassWordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PasswordActionPerformed
+    }//GEN-LAST:event_PassWordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,7 +161,7 @@ public class LOGIN extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JButton Confirmbutton;
-    private javax.swing.JPasswordField Password;
+    private javax.swing.JPasswordField PassWord;
     private javax.swing.JTextField UserName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
