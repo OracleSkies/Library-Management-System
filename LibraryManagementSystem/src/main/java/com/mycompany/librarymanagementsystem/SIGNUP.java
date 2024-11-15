@@ -114,6 +114,10 @@ public class SIGNUP extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this,"Passwords don't match","Error",JOptionPane.ERROR_MESSAGE);
            return;
         }
+        String pass;
+        
+        // Adds Text to database
+        saveToFile(username,Pass);
     }//GEN-LAST:event_ConfirmButtonActionActionPerformed
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
@@ -123,6 +127,12 @@ public class SIGNUP extends javax.swing.JFrame {
     private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PasswordActionPerformed
+    
+    
+    
+    
+    
+    
     
     private void saveToFile(String username, String password) {
         try (var writer = new BufferedWriter(new FileWriter("Accounts.txt", true))) {
