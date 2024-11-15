@@ -42,6 +42,7 @@ com\mycompany\librarymanagementsystem\AvailableBooks$2.class
 com\mycompany\librarymanagementsystem\BookIssueAndReturnWindow.class
 com\mycompany\librarymanagementsystem\DASHBOARD$7.class
 com\mycompany\librarymanagementsystem\BookReturnWindow$2.class
+com\mycompany\librarymanagementsystem\ADD$3.class
 com\mycompany\librarymanagementsystem\Remove_Books$1.class
 com\mycompany\librarymanagementsystem\ADD_REMOVE$3.class
 com\mycompany\librarymanagementsystem\BookReturnWindow$1.class
