@@ -4,6 +4,15 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yan
@@ -15,7 +24,47 @@ public class ManageMembersWindow extends javax.swing.JFrame {
      */
     public ManageMembersWindow() {
         initComponents();
+        populateTable(); // Populate members first
+
     }
+    
+    private void populateTable() {
+        String borrowedFilePath = "borrowed.txt"; // Path to the borrowed books file
+        String accountFilePath = "account.txt";   // Path to the account file
+        String returnedFilePath = "returned.txt";  // Path to the returned books file
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath));
+             BufferedReader accountReader = new BufferedReader(new FileReader(accountFilePath));
+             BufferedReader returnedReader = new BufferedReader(new FileReader(returnedFilePath))) {
+
+            // Read all returned books into a set for quick lookup
+            Set<String> returnedBooks = new HashSet<>();
+            String returnedLine;
+            while ((returnedLine = returnedReader.readLine()) != null) {
+                returnedBooks.add(returnedLine.trim());
+            }
+
+            String bookLine;
+            String memberLine;
+            while ((bookLine = borrowedReader.readLine()) != null &&
+                   (memberLine = accountReader.readLine()) != null) {
+                // Check if the book title is in the returnedBooks set
+                String returnedDate = returnedBooks.contains(bookLine) ? now.format(formatter) : null;
+                model.addRow(new Object[]{memberLine, bookLine, now.format(formatter), returnedDate});
+            }
+
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "An error occurred while populating the table: " + e.getMessage(), 
+                "Error", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,34 +82,16 @@ public class ManageMembersWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title", "Book Title", "Book Issued", "Book Returned"
+                "Member", "Book Title", "Book Issued", "Book Returned"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -94,6 +125,7 @@ public class ManageMembersWindow extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
