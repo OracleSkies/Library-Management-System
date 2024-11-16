@@ -23,28 +23,29 @@ public class AvailableBooks extends javax.swing.JFrame {
      */
     public AvailableBooks() {
         initComponents();
-        loadDataFromFile("books.txt"); // Change "books.txt" to your file path
+        loadDataFromFile("Library.txt"); // Change "books.txt" to your file path
     }
     
     private void loadDataFromFile(String filePath) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         // Load borrowed book titles into a Set for fast lookup
-        Set<String> borrowedBooks = loadBorrowedBooks("borrowed.txt");
+        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(","); // Assuming data is comma-separated
-                if (data.length == 5) { // Ensure there are 5 columns
-                    String title = data[0].trim();
-                    // Check if the book title is in the borrowed list
-                    if (borrowedBooks.contains(title)) {
-                        data[4] = "NO"; // Update availability to "NO" if the book is borrowed
-                    } else {
-                        data[4] = "YES"; // Update availability to "YES" if the book is available
-                    }
-                    model.addRow(data); // Add row to the table model
-                }
+                String[] data = line.split(",");
+                model.addRow(data);
+//                if (data.length == 5) { // Ensure there are 5 columns
+//                    String title = data[0].trim();
+//                    // Check if the book title is in the borrowed list
+//                    if (borrowedBooks.contains(title)) {
+//                        data[4] = "NO"; // Update availability to "NO" if the book is borrowed
+//                    } else {
+//                        data[4] = "YES"; // Update availability to "YES" if the book is available
+//                    }
+//                    model.addRow(data); // Add row to the table model
+//                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,7 +77,7 @@ public class AvailableBooks extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        backButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,8 +104,13 @@ public class AvailableBooks extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 550, 300));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 200, 70));
+        backButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        backButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 200, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/available books.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -112,6 +118,13 @@ public class AvailableBooks extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
+        // TODO add your handling code here:
+        DASHBOARD dash = new DASHBOARD();
+        setVisible(false);
+        dash.setVisible(true);
+    }//GEN-LAST:event_backButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,7 +164,7 @@ public class AvailableBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton backButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

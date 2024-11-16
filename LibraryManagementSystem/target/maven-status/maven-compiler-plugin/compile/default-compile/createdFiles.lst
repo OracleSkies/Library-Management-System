@@ -18,6 +18,7 @@ com\mycompany\librarymanagementsystem\ADD_REMOVE.class
 com\mycompany\librarymanagementsystem\SearchWindow$3.class
 com\mycompany\librarymanagementsystem\ADD.class
 com\mycompany\librarymanagementsystem\LOGIN.class
+com\mycompany\librarymanagementsystem\AvailableBooks$3.class
 com\mycompany\librarymanagementsystem\AvailableBooks.class
 com\mycompany\librarymanagementsystem\Start$3.class
 com\mycompany\librarymanagementsystem\BookIssueWindow.class
