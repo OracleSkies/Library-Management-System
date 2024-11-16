@@ -57,7 +57,7 @@ public class DASHBOARD extends javax.swing.JFrame {
         });
         getContentPane().add(Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 107));
 
-        BorrowReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_BorrowReturn.png"))); // NOI18N
+        BorrowReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Light_IssueReturn.png"))); // NOI18N
         BorrowReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BorrowReturnActionPerformed(evt);
