@@ -4,6 +4,12 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yan
@@ -28,8 +34,8 @@ public class SearchWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        titleField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,15 +50,20 @@ public class SearchWindow extends javax.swing.JFrame {
         });
         jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 200, 80));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Search.png"))); // NOI18N
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 220, 80));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Search.png"))); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 470, 30));
+        jPanel1.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 220, 80));
+
+        titleField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titleFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 470, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BG_SearchWindow.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 440));
@@ -74,9 +85,9 @@ public class SearchWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void titleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_titleFieldActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
@@ -85,6 +96,45 @@ public class SearchWindow extends javax.swing.JFrame {
         dash.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        String title = titleField.getText().trim();
+        searchTitle(title);
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void searchTitle(String SearchTitle){
+        String bookTitle;
+        String author;
+        String bookNumber;
+        String category;
+        if (SearchTitle.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        File file = new File("Library.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            boolean found = false;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data[0].equalsIgnoreCase(SearchTitle)) {
+                    found = true;
+                    // Output all elements for the found name
+                    bookTitle = data[0];
+                    author = data[1];
+                    bookNumber = data[2];
+                    category = data[3];
+                    break;
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, SearchTitle + " is not found", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error reading file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -122,9 +172,9 @@ public class SearchWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField titleField;
     // End of variables declaration//GEN-END:variables
 }
