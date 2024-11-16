@@ -91,7 +91,7 @@ public class BookIssueWindow extends javax.swing.JFrame {
         try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath))) {
             String line;
             while ((line = borrowedReader.readLine()) != null) {
-                if (line.contains(searchTitle)) { // Check if the title exists in the borrowed list
+                if (line.equalsIgnoreCase(searchTitle)) { // Check if the exact title exists in the borrowed list
                     isBorrowed = true;
                     break;
                 }
@@ -113,14 +113,17 @@ public class BookIssueWindow extends javax.swing.JFrame {
             return;
         }
 
-        // If the book is not borrowed, check if it exists in the available books list and mark it as borrowed
+        // Check if the book exists in the available books list
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
              BufferedWriter writer = new BufferedWriter(new FileWriter(borrowedFilePath, true))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.contains(searchTitle)) { // Match found in available books
-                    writer.write(line); // Add the book to the borrowed file
-                    writer.newLine(); // Add a new line in the borrowed file
+                String[] parts = line.split(","); // Assuming the file is comma-separated
+                String bookTitle = parts[0].trim(); // Extract the book title (first part of the line)
+
+                if (bookTitle.equalsIgnoreCase(searchTitle)) { // Match found
+                    writer.write(bookTitle); // Write only the book title to the borrowed file
+                    writer.newLine();
                     bookFound = true;
                     break;
                 }
