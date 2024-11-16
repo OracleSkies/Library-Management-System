@@ -92,7 +92,7 @@ public class ADD extends javax.swing.JFrame {
 
     private void saveToFile(String title, String author, String bookNumber, String category) {
         try (var writer = new BufferedWriter(new FileWriter("Library.txt", true))) {
-            writer.write(title + "," + author  + "," +  bookNumber + "," + category + "," + "Yes");
+            writer.write(title + "," + author  + "," +  bookNumber + "," + category);
             writer.newLine();
 
             JOptionPane.showMessageDialog(this, title + " is added successfully in the library!");

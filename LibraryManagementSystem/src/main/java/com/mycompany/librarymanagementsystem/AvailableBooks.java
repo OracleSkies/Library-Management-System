@@ -56,9 +56,9 @@ public class AvailableBooks extends javax.swing.JFrame {
         Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
         
         if (borrowedBooks.contains(title)) {
-            data = "NO"; // Update availability to "NO" if the book is borrowed
+            data = "BORROWED"; // Update availability to "NO" if the book is borrowed
         } else {
-            data = "YES"; // Update availability to "YES" if the book is available
+            data = "AVAILABLE"; // Update availability to "YES" if the book is available
         }
         
         return data;
