@@ -35,23 +35,35 @@ public class AvailableBooks extends javax.swing.JFrame {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
+//                String title = data.toString();
+                System.out.println(checkBorrowed(line));
+                //This appeneds the return value from checkBorrowed() to the Availability column to the row in the table.
+                String newElement = checkBorrowed(line);
+                String[] newData = new String[data.length +1];
+                System.arraycopy(data,0,newData,0,data.length);
+                newData[data.length] = newElement;
+                data = newData;
                 model.addRow(data);
-//                if (data.length == 5) { // Ensure there are 5 columns
-//                    String title = data[0].trim();
-//                    // Check if the book title is in the borrowed list
-//                    if (borrowedBooks.contains(title)) {
-//                        data[4] = "NO"; // Update availability to "NO" if the book is borrowed
-//                    } else {
-//                        data[4] = "YES"; // Update availability to "YES" if the book is available
-//                    }
-//                    model.addRow(data); // Add row to the table model
-//                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private String checkBorrowed (String title){
+        //This method checks if
+        String data;
+        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
+        
+        if (borrowedBooks.contains(title)) {
+            data = "NO"; // Update availability to "NO" if the book is borrowed
+        } else {
+            data = "YES"; // Update availability to "YES" if the book is available
+        }
+        
+        return data;
+    
+    }
     private Set<String> loadBorrowedBooks(String filePath) {
         Set<String> borrowedBooks = new HashSet<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
