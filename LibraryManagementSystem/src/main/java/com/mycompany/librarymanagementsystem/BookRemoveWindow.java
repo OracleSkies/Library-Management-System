@@ -31,7 +31,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         String bookId = jTextField1.getText().trim(); // Get the input from the text field
 
         if (bookId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a book ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a book Title.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -92,6 +92,11 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Remove.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 230, 80));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 470, 30));
 
@@ -115,6 +120,10 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
