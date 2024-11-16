@@ -4,6 +4,15 @@
  */
 package com.mycompany.librarymanagementsystem;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author yan
@@ -16,7 +25,7 @@ public class BookReturnWindow extends javax.swing.JFrame {
     public BookReturnWindow() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,9 +41,15 @@ public class BookReturnWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Return.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 250, 80));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
@@ -50,12 +65,70 @@ public class BookReturnWindow extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 490));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        copyBookTitleToReturnedFile();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void copyBookTitleToReturnedFile() {
+        String bookTitle = jTextField1.getText().trim();
+
+        if (bookTitle.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+        BufferedWriter tempWriter = null;
+        File tempFile = new File("temp.txt");
+
+        try {
+            reader = new BufferedReader(new FileReader("borrowed.txt"));
+            writer = new BufferedWriter(new FileWriter("returned.txt", true));  // Append mode
+            tempWriter = new BufferedWriter(new FileWriter(tempFile));
+
+            String line;
+            boolean bookFound = false;
+
+            // Read each line from borrowed.txt
+            while ((line = reader.readLine()) != null) {
+                if (line.equalsIgnoreCase(bookTitle)) {
+                    writer.write(line);  // Write the book title to returned.txt
+                    writer.newLine();
+                    bookFound = true;
+                } else {
+                    tempWriter.write(line);  // Keep other books in temp.txt
+                    tempWriter.newLine();
+                }
+            }
+            
+            if (bookFound) {
+                JOptionPane.showMessageDialog(this, "Book returned: " + bookTitle, "Success", JOptionPane.INFORMATION_MESSAGE);
+                // Replace borrowed.txt with the updated temp file
+                tempFile.renameTo(new File("borrowed.txt"));
+            } else {
+                JOptionPane.showMessageDialog(this, "The entered book title was not found in borrowed.txt.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error accessing files: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (reader != null) reader.close();
+                if (writer != null) writer.close();
+                if (tempWriter != null) tempWriter.close();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error closing files: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
