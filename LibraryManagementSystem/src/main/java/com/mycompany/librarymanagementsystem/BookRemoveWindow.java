@@ -31,11 +31,11 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         String bookId = jTextField1.getText().trim(); // Get the input from the text field
 
         if (bookId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a book ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a book title.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        File originalFile = new File("books.txt");
+        File originalFile = new File("Library.txt");
         File tempFile = new File("books_temp.txt");
 
         boolean isRemoved = false;
@@ -68,7 +68,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
             }
         } else {
             tempFile.delete(); // Cleanup temp file
-            JOptionPane.showMessageDialog(this, "Book ID not found.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, bookId + " is not found in the library.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     /**
@@ -83,7 +83,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        backButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,8 +95,13 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 230, 80));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 470, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 200, 80));
+        backButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        backButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 200, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BG_BookRemoveWindow.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 490));
@@ -115,6 +120,13 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
+        // TODO add your handling code here:
+        DASHBOARD dash = new DASHBOARD();
+        setVisible(false);
+        dash.setVisible(true);
+    }//GEN-LAST:event_backButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,8 +164,8 @@ public class BookRemoveWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;

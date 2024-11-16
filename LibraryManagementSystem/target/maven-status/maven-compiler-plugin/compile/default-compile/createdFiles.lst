@@ -18,7 +18,6 @@ com\mycompany\librarymanagementsystem\ADD_REMOVE.class
 com\mycompany\librarymanagementsystem\SearchWindow$3.class
 com\mycompany\librarymanagementsystem\ADD.class
 com\mycompany\librarymanagementsystem\LOGIN.class
-com\mycompany\librarymanagementsystem\AvailableBooks$3.class
 com\mycompany\librarymanagementsystem\AvailableBooks.class
 com\mycompany\librarymanagementsystem\Start$3.class
 com\mycompany\librarymanagementsystem\BookIssueWindow.class
@@ -49,6 +48,7 @@ com\mycompany\librarymanagementsystem\BookReturnWindow$1.class
 com\mycompany\librarymanagementsystem\LOGIN$2.class
 com\mycompany\librarymanagementsystem\DASHBOARD$6.class
 com\mycompany\librarymanagementsystem\ManageMembersWindow$2.class
+com\mycompany\librarymanagementsystem\BookIssueWindow$3.class
 com\mycompany\librarymanagementsystem\SearchWindow$1.class
 com\mycompany\librarymanagementsystem\ADD$1.class
 com\mycompany\librarymanagementsystem\ManageMembersWindow$1.class
