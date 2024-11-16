@@ -35,8 +35,6 @@ public class AvailableBooks extends javax.swing.JFrame {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-//                String title = data.toString();
-                System.out.println(checkBorrowed(line));
                 //This appeneds the return value from checkBorrowed() to the Availability column to the row in the table.
                 String newElement = checkBorrowed(line);
                 String[] newData = new String[data.length +1];
