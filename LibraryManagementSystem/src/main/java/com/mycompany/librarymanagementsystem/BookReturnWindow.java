@@ -69,7 +69,9 @@ public class BookReturnWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+        DASHBOARD dash = new DASHBOARD();
+        setVisible(false);
+        dash.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -90,8 +92,8 @@ public class BookReturnWindow extends javax.swing.JFrame {
         File tempFile = new File("temp.txt");
 
         try {
-            reader = new BufferedReader(new FileReader("borrowed.txt"));
-            writer = new BufferedWriter(new FileWriter("returned.txt", true));  // Append mode
+            reader = new BufferedReader(new FileReader("ManageBorrowed.txt"));
+            writer = new BufferedWriter(new FileWriter("ManageReturned.txt", true));  // Append mode
             tempWriter = new BufferedWriter(new FileWriter(tempFile));
 
             String line;
@@ -112,7 +114,7 @@ public class BookReturnWindow extends javax.swing.JFrame {
             if (bookFound) {
                 JOptionPane.showMessageDialog(this, "Book returned: " + bookTitle, "Success", JOptionPane.INFORMATION_MESSAGE);
                 // Replace borrowed.txt with the updated temp file
-                tempFile.renameTo(new File("borrowed.txt"));
+                tempFile.renameTo(new File("ManageBorrowed.txt"));
             } else {
                 JOptionPane.showMessageDialog(this, "The entered book title was not found in borrowed.txt.", "Error", JOptionPane.ERROR_MESSAGE);
             }
