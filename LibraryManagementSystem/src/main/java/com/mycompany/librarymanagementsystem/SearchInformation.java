@@ -13,8 +13,15 @@ public class SearchInformation extends javax.swing.JFrame {
     /**
      * Creates new form BookBorrowedWindow
      */
-    public SearchInformation() {
+    public SearchInformation(String title, String author, String bookNumber, String category, String availability) {
         initComponents();
+        //String title, String author, String bookNumber, String category
+        //labels wait lang
+        titleLabel.setText(title);
+        authorLabel.setText(author);
+        bookNumberLabel.setText(bookNumber);
+        categoryLabel.setText(category);
+        availabilityLabel.setText(availability);
     }
 
     /**
@@ -27,49 +34,45 @@ public class SearchInformation extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        authorLabel = new javax.swing.JLabel();
+        bookNumberLabel = new javax.swing.JLabel();
+        categoryLabel = new javax.swing.JLabel();
+        availabilityLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 200, 80));
+        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 200, 80));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Borrow.png"))); // NOI18N
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 230, 80));
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 280, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Title");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 280, 30));
+        authorLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        authorLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(authorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 280, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Author");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 280, 30));
+        bookNumberLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        bookNumberLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(bookNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 280, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Book Number");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 280, 30));
+        categoryLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        categoryLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 280, 30));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Category");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 280, 30));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Available/Unavailable");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 280, 30));
+        availabilityLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        availabilityLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(availabilityLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 280, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Background.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 490));
@@ -86,7 +89,15 @@ public class SearchInformation extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        SearchWindow search = new SearchWindow();
+        setVisible(false);
+        search.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,22 +128,21 @@ public class SearchInformation extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SearchInformation().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SearchInformation("Sample Title", "Sample Author", "12345", "Fiction").setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel authorLabel;
+    private javax.swing.JLabel availabilityLabel;
+    private javax.swing.JButton backButton;
+    private javax.swing.JLabel bookNumberLabel;
+    private javax.swing.JLabel categoryLabel;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

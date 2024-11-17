@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,11 @@ import javax.swing.JOptionPane;
  */
 public class SearchWindow extends javax.swing.JFrame {
 
+    private String bookTitle;
+    private String author;
+    private String bookNumber;
+    private String category;
+    private String availability;
     /**
      * Creates new form SearchWindow
      */
@@ -103,14 +110,17 @@ public class SearchWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchTitle(String SearchTitle){
-        String bookTitle;
-        String author;
-        String bookNumber;
-        String category;
+        bookTitle = "";
+        author = "";
+        bookNumber = "";
+        category = "";
+        availability = "";
+        
         if (SearchTitle.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a book title.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
         File file = new File("Library.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -124,16 +134,62 @@ public class SearchWindow extends javax.swing.JFrame {
                     author = data[1];
                     bookNumber = data[2];
                     category = data[3];
-                    System.out.println("FOUND");
+                    availability = checkBorrowed(line);
                     break;
                 }
             }
             if (!found){
                 JOptionPane.showMessageDialog(this, SearchTitle + " is not found", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }else {
+            // Open SearchInformation and pass the book data
+            // Pass the details to SearchInformation
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new SearchInformation(bookTitle, author, bookNumber, category,availability).setVisible(true);
+//                    bookTitle, author, bookNumber, category
+                }
+            });
+        this.setVisible(false);
+        }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error reading file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+    }
+    private void runSearchInfo(String title, String author, String bookNumber, String category, String availability){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new SearchInformation(title, author, bookNumber, category, availability).setVisible(true);
+//                    bookTitle, author, bookNumber, category
+                }
+            });
+        this.setVisible(false); 
+    
+    }
+    private String checkBorrowed (String title){
+        //This method checks if
+        String data;
+        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
+        
+        if (borrowedBooks.contains(title)) {
+            data = "BORROWED"; // Update availability to "NO" if the book is borrowed
+        } else {
+            data = "AVAILABLE"; // Update availability to "YES" if the book is available
         }
+        
+        return data;
+    
+    }
+    private Set<String> loadBorrowedBooks(String filePath) {
+        Set<String> borrowedBooks = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                borrowedBooks.add(line.trim()); // Assuming borrowed.txt contains one book title per line
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return borrowedBooks;
     }
     /**
      * @param args the command line arguments
