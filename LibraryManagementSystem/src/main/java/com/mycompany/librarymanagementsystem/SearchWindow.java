@@ -124,12 +124,12 @@ public class SearchWindow extends javax.swing.JFrame {
                     author = data[1];
                     bookNumber = data[2];
                     category = data[3];
+                    System.out.println("FOUND");
                     break;
                 }
-                else{
-                    JOptionPane.showMessageDialog(this, SearchTitle + " is not found", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+            }
+            if (!found){
+                JOptionPane.showMessageDialog(this, SearchTitle + " is not found", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error reading file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
