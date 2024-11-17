@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 
@@ -76,10 +78,72 @@ public class BookReturnWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        copyBookTitleToReturnedFile();
-        returnBook();
+        updateBookReturn();
+        deleteBookOnBorrowed();
+        //deleteMember();
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void updateBookReturn(){
+        String searchTitle = jTextField1.getText().trim();
+        String bookTitle = null;
+        String memberName = null;
+        String dateTime = null;
+        String memberFile = "ManageMember.txt";
+        boolean memberFound = false;
+        if (searchTitle.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(memberFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(memberFile, true))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(","); // Assuming the file is comma-separated
+                String titleCheck = parts[1].trim(); // Extract the book title (first part of the line)
+
+                if (titleCheck.equalsIgnoreCase(searchTitle)) { // Match found
+                    memberFound = true;
+                    bookTitle = parts[1];
+                    memberName = parts[0];
+                    dateTime = parts[2];
+                    reader.close();
+                    writer.close();
+                    break;
+                }
+            }
+
+            if (memberFound) {
+                deleteMember();
+                // Write member name to MembersList.txt
+                try (BufferedWriter memberWriter = new BufferedWriter(new FileWriter(memberFile, true))) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime dateTimeNow = LocalDateTime.now();
+                    memberWriter.write(memberName + "," + bookTitle + "," + dateTime + "," + dateTimeNow.format(formatter)); // Write the member name to the file
+                    memberWriter.newLine();
+                } catch (IOException e) {
+                    javax.swing.JOptionPane.showMessageDialog(this, 
+                            "An error occurred while saving the member name: " + e.getMessage(), 
+                            "Error", 
+                            javax.swing.JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                        "Book not found: " + searchTitle, 
+                        "Not Found", 
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "An error occurred: " + e.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
     
-    private void returnBook(){
+    }
+    private void deleteBookOnBorrowed(){
         String bookTitle = jTextField1.getText().trim();
         if (bookTitle.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter the book title.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -119,6 +183,48 @@ public class BookReturnWindow extends javax.swing.JFrame {
         } else {
             tempFile.delete(); // Cleanup temp file
             JOptionPane.showMessageDialog(this, bookTitle + " is not found in the library.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private void deleteMember(){
+        String bookId = jTextField1.getText().trim(); // Get the input from the text field
+
+        if (bookId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        File originalFile = new File("ManageMember.txt");
+        File tempFile = new File("books_temp.txt");
+
+        boolean isRemoved = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the book ID
+                if (line.contains(bookId)) {
+                    isRemoved = true; // Mark as removed
+                    continue; // Skip writing this line to the temp file
+                }
+                writer.write(line);
+                writer.newLine();
+                
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error processing file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } 
+         // Replace the original file with the temp file
+        if (isRemoved) {
+            
+            if (originalFile.delete()) {
+                tempFile.renameTo(originalFile);
+            } 
+        } else {
+            tempFile.delete(); // Cleanup temp file
         }
     }
     public void copyBookTitleToReturnedFile() {
