@@ -121,7 +121,7 @@ public class SearchWindow extends javax.swing.JFrame {
             return;
         }
         
-        File file = new File("Library.txt");
+        File file = new File("ManageLibrary.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             boolean found = false;
