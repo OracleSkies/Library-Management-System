@@ -58,6 +58,12 @@ public class BookIssueWindow extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, 80));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 192, 410, 30));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 252, 410, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BG_BookIssueWindow.png"))); // NOI18N
@@ -68,17 +74,29 @@ public class BookIssueWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        DASHBOARD dash = new DASHBOARD();
+        setVisible(false);
+        dash.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String searchTitle = jTextField1.getText().trim(); // Get the book title from input
-        String inputFilePath = "books.txt"; // Path to your books list file
-        String borrowedFilePath = "borrowed.txt"; // Path to your borrowed books list file
+        String memberName = jTextField2.getText().trim(); // Get the member name from input
+        String inputFilePath = "ManageLibrary.txt"; // Path to your books list file
+        String borrowedFilePath = "ManageBorrowed.txt"; // Path to your borrowed books list file
+        String membersFilePath = "ManageMember.txt"; // Path to save member names
 
         if (searchTitle.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, 
                     "Please enter a book title to search.", 
+                    "Input Error", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (memberName.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Please enter a member name.", 
                     "Input Error", 
                     javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
@@ -130,8 +148,21 @@ public class BookIssueWindow extends javax.swing.JFrame {
             }
 
             if (bookFound) {
+                // Write member name to MembersList.txt
+                try (BufferedWriter memberWriter = new BufferedWriter(new FileWriter(membersFilePath, true))) {
+                    memberWriter.write(memberName); // Write the member name to the file
+                    memberWriter.newLine();
+                } catch (IOException e) {
+                    javax.swing.JOptionPane.showMessageDialog(this, 
+                            "An error occurred while saving the member name: " + e.getMessage(), 
+                            "Error", 
+                            javax.swing.JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 javax.swing.JOptionPane.showMessageDialog(this, 
-                        "Book found and added to borrowed list:\n" + searchTitle, 
+                        "Book found and added to borrowed list:\n" + searchTitle + 
+                        "\nMember: " + memberName, 
                         "Success", 
                         javax.swing.JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -148,6 +179,10 @@ public class BookIssueWindow extends javax.swing.JFrame {
                     javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
