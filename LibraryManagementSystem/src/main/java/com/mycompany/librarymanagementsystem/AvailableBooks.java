@@ -23,13 +23,13 @@ public class AvailableBooks extends javax.swing.JFrame {
      */
     public AvailableBooks() {
         initComponents();
-        loadDataFromFile("Library.txt"); // Change "books.txt" to your file path
+        loadDataFromFile("ManageLibrary.txt"); // Change "books.txt" to your file path
     }
     
     private void loadDataFromFile(String filePath) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         // Load borrowed book titles into a Set for fast lookup
-        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
+        Set<String> borrowedBooks = loadBorrowedBooks("ManageBorrowed.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -51,7 +51,7 @@ public class AvailableBooks extends javax.swing.JFrame {
     private String checkBorrowed (String title){
         //This method checks if
         String data;
-        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
+        Set<String> borrowedBooks = loadBorrowedBooks("ManageBorrowed.txt");
         
         if (borrowedBooks.contains(title)) {
             data = "BORROWED"; // Update availability to "NO" if the book is borrowed
