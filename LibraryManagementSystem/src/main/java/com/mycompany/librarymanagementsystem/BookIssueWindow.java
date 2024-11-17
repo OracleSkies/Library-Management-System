@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -33,7 +35,7 @@ public class BookIssueWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        IssueButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -50,13 +52,13 @@ public class BookIssueWindow extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 200, 80));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Search.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        IssueButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Search.png"))); // NOI18N
+        IssueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                IssueButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, 80));
+        getContentPane().add(IssueButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, 80));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 192, 410, 30));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,12 +81,13 @@ public class BookIssueWindow extends javax.swing.JFrame {
         dash.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void IssueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueButtonActionPerformed
         String searchTitle = jTextField1.getText().trim(); // Get the book title from input
         String memberName = jTextField2.getText().trim(); // Get the member name from input
-        String inputFilePath = "ManageLibrary.txt"; // Path to your books list file
-        String borrowedFilePath = "ManageBorrowed.txt"; // Path to your borrowed books list file
+        String inputFilePath = "Library.txt"; // Path to your books list file
+        String borrowedFilePath = "Borrowed.txt"; // Path to your borrowed books list file
         String membersFilePath = "ManageMember.txt"; // Path to save member names
+        
 
         if (searchTitle.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, 
@@ -105,11 +108,12 @@ public class BookIssueWindow extends javax.swing.JFrame {
         boolean bookFound = false;
         boolean isBorrowed = false;
 
-        // Check if the book is already borrowed
+        // Check if the book is already borrowed at Borrowed.txt
         try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath))) {
             String line;
             while ((line = borrowedReader.readLine()) != null) {
-                if (line.equalsIgnoreCase(searchTitle)) { // Check if the exact title exists in the borrowed list
+                String[] info = line.split(",");
+                if (info[0].equalsIgnoreCase(searchTitle)) { // Check if the exact title exists in the borrowed list
                     isBorrowed = true;
                     break;
                 }
@@ -140,7 +144,7 @@ public class BookIssueWindow extends javax.swing.JFrame {
                 String bookTitle = parts[0].trim(); // Extract the book title (first part of the line)
 
                 if (bookTitle.equalsIgnoreCase(searchTitle)) { // Match found
-                    writer.write(bookTitle); // Write only the book title to the borrowed file
+                    writer.write(line); // Write only the book title to the borrowed file
                     writer.newLine();
                     bookFound = true;
                     break;
@@ -150,7 +154,9 @@ public class BookIssueWindow extends javax.swing.JFrame {
             if (bookFound) {
                 // Write member name to MembersList.txt
                 try (BufferedWriter memberWriter = new BufferedWriter(new FileWriter(membersFilePath, true))) {
-                    memberWriter.write(memberName); // Write the member name to the file
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime dateTimeNow = LocalDateTime.now();
+                    memberWriter.write(memberName + "," + searchTitle + "," + dateTimeNow.format(formatter)); // Write the member name to the file
                     memberWriter.newLine();
                 } catch (IOException e) {
                     javax.swing.JOptionPane.showMessageDialog(this, 
@@ -178,7 +184,7 @@ public class BookIssueWindow extends javax.swing.JFrame {
                     "Error", 
                     javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_IssueButtonActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -220,8 +226,8 @@ public class BookIssueWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton IssueButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

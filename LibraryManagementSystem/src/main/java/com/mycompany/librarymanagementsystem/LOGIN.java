@@ -92,7 +92,7 @@ public class LOGIN extends javax.swing.JFrame {
 
     private String loginAccount(String UserName, String Pass){
 
-          try (BufferedReader reader = new BufferedReader(new FileReader("ManageAccounts.txt"))){
+          try (BufferedReader reader = new BufferedReader(new FileReader("Accounts.txt"))){
               String line;
               boolean accountFound = false;
               while ((line = reader.readLine()) != null){

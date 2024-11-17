@@ -75,9 +75,52 @@ public class BookReturnWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        copyBookTitleToReturnedFile();
+//        copyBookTitleToReturnedFile();
+        returnBook();
     }//GEN-LAST:event_jButton1ActionPerformed
     
+    private void returnBook(){
+        String bookTitle = jTextField1.getText().trim();
+        if (bookTitle.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        File originalFile = new File("Borrowed.txt");
+        File tempFile = new File("books_temp.txt");
+
+        boolean isRemoved = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line contains the book ID
+                if (line.contains(bookTitle)) {
+                    isRemoved = true; // Mark as removed
+                    continue; // Skip writing this line to the temp file
+                }
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error processing file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         // Replace the original file with the temp file
+        if (isRemoved) {
+            if (originalFile.delete()) {
+                tempFile.renameTo(originalFile);
+                JOptionPane.showMessageDialog(this, "Book returned successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error updating the file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            tempFile.delete(); // Cleanup temp file
+            JOptionPane.showMessageDialog(this, bookTitle + " is not found in the library.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     public void copyBookTitleToReturnedFile() {
         String bookTitle = jTextField1.getText().trim();
 

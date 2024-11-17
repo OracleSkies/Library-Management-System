@@ -35,7 +35,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
             return;
         }
 
-        File originalFile = new File("ManageLibrary.txt");
+        File originalFile = new File("Library.txt");
         File tempFile = new File("books_temp.txt");
 
         boolean isRemoved = false;

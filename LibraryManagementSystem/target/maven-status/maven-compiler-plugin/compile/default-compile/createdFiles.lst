@@ -1,5 +1,6 @@
 com\mycompany\librarymanagementsystem\DASHBOARD$5.class
 com\mycompany\librarymanagementsystem\BookReturnWindow$3.class
+com\mycompany\librarymanagementsystem\ManageMembersWindow$3.class
 com\mycompany\librarymanagementsystem\ADD$2.class
 com\mycompany\librarymanagementsystem\SearchWindow$6.class
 com\mycompany\librarymanagementsystem\SIGNUP.class
@@ -26,6 +27,7 @@ com\mycompany\librarymanagementsystem\Start$3.class
 com\mycompany\librarymanagementsystem\BookIssueWindow.class
 com\mycompany\librarymanagementsystem\SearchWindow.class
 com\mycompany\librarymanagementsystem\DASHBOARD$2.class
+com\mycompany\librarymanagementsystem\BookIssueWindow$4.class
 com\mycompany\librarymanagementsystem\SIGNUP$4.class
 com\mycompany\librarymanagementsystem\SearchWindow$2.class
 com\mycompany\librarymanagementsystem\ADD_REMOVE$1.class

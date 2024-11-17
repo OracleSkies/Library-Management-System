@@ -24,8 +24,22 @@ public class ManageMembersWindow extends javax.swing.JFrame {
      */
     public ManageMembersWindow() {
         initComponents();
-        populateTable(); // Populate members first
+        loadDataFromFile("ManageMember.txt");
+    }
+    
+    private void loadDataFromFile(String filePath) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        // Load borrowed book titles into a Set for fast lookup
 
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                model.addRow(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void populateTable() {
