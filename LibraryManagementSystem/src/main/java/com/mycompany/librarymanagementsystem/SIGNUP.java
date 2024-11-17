@@ -117,7 +117,7 @@ public class SIGNUP extends javax.swing.JFrame {
     }//GEN-LAST:event_ConfirmButtonActionPerformed
 
     private void saveToFile(String username, String password) {
-        try (var writer = new BufferedWriter(new FileWriter("Accounts.txt", true))) {
+        try (var writer = new BufferedWriter(new FileWriter("ManageAccounts.txt", true))) {
             writer.write(username + "," + password);
             writer.newLine();
 
