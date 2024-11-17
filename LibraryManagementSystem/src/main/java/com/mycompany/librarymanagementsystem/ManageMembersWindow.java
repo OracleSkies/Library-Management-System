@@ -29,31 +29,47 @@ public class ManageMembersWindow extends javax.swing.JFrame {
     }
     
     private void populateTable() {
-        String borrowedFilePath = "borrowed.txt"; // Path to the borrowed books file
-        String accountFilePath = "account.txt";   // Path to the account file
-        String returnedFilePath = "returned.txt";  // Path to the returned books file
+        String borrowedFilePath = "ManageBorrowed.txt"; // Path to the borrowed books file
+        String accountFilePath = "ManageMember.txt";   // Path to the account file
+        String returnedFilePath = "ManageReturned.txt";  // Path to the returned books file
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
 
-        try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath));
-             BufferedReader accountReader = new BufferedReader(new FileReader(accountFilePath));
-             BufferedReader returnedReader = new BufferedReader(new FileReader(returnedFilePath))) {
-
-            // Read all returned books into a set for quick lookup
+        try {
+            // Load returned books into a set for quick lookup
             Set<String> returnedBooks = new HashSet<>();
-            String returnedLine;
-            while ((returnedLine = returnedReader.readLine()) != null) {
-                returnedBooks.add(returnedLine.trim());
+            try (BufferedReader returnedReader = new BufferedReader(new FileReader(returnedFilePath))) {
+                String returnedLine;
+                while ((returnedLine = returnedReader.readLine()) != null) {
+                    String[] parts = returnedLine.split("\\s+", 2);
+                    if (parts.length > 0) {
+                        returnedBooks.add(parts[0]); // Add first word of each line
+                    }
+                }
             }
 
-            String bookLine;
-            String memberLine;
-            while ((bookLine = borrowedReader.readLine()) != null &&
-                   (memberLine = accountReader.readLine()) != null) {
-                // Check if the book title is in the returnedBooks set
-                String returnedDate = returnedBooks.contains(bookLine) ? now.format(formatter) : null;
-                model.addRow(new Object[]{memberLine, bookLine, now.format(formatter), returnedDate});
+            // Read borrowed and account data
+            try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath));
+                 BufferedReader accountReader = new BufferedReader(new FileReader(accountFilePath))) {
+
+                String bookLine;
+                String memberLine;
+                while ((bookLine = borrowedReader.readLine()) != null &&
+                       (memberLine = accountReader.readLine()) != null) {
+                    // Parse borrowed and member details
+                    String[] bookParts = bookLine.split("\\s+", 2);
+                    String[] memberParts = memberLine.split("\\s+", 2);
+
+                    if (bookParts.length > 0 && memberParts.length > 0) {
+                        String bookID = bookParts[0];
+                        String memberID = memberParts[0];
+                        String returnedDate = returnedBooks.contains(bookID) ? now.format(formatter) : null;
+
+                        // Add row to the table
+                        model.addRow(new Object[]{memberID, bookID, now.format(formatter), returnedDate});
+                    }
+                }
             }
 
         } catch (IOException e) {
@@ -63,6 +79,8 @@ public class ManageMembersWindow extends javax.swing.JFrame {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
 
     
 
@@ -78,7 +96,7 @@ public class ManageMembersWindow extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,8 +125,13 @@ public class ManageMembersWindow extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 550, 280));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 200, 80));
+        BackButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dark_Back.png"))); // NOI18N
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 200, 80));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Manage Members (2).png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, -1));
@@ -127,7 +150,13 @@ public class ManageMembersWindow extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+        DASHBOARD dash = new DASHBOARD();
+        setVisible(false);
+        dash.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -164,7 +193,7 @@ public class ManageMembersWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BackButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
