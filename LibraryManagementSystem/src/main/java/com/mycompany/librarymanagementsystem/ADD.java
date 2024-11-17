@@ -91,7 +91,7 @@ public class ADD extends javax.swing.JFrame {
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void saveToFile(String title, String author, String bookNumber, String category) {
-        try (var writer = new BufferedWriter(new FileWriter("Library.txt", true))) {
+        try (var writer = new BufferedWriter(new FileWriter("ManageLibrary.txt", true))) {
             writer.write(title + "," + author  + "," +  bookNumber + "," + category);
             writer.newLine();
 
