@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,8 +32,37 @@ public class BookRemoveWindow extends javax.swing.JFrame {
     private void removeBookFromFile() {
         String bookId = jTextField1.getText().trim(); // Get the input from the text field
 
+        boolean isBorrowed = false;
+        String borrowedFilePath = "Borrowed.txt";
         if (bookId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a book title.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Check if the book is already borrowed at Borrowed.txt
+        try (BufferedReader borrowedReader = new BufferedReader(new FileReader(borrowedFilePath))) {
+            String line;
+            while ((line = borrowedReader.readLine()) != null) {
+                String[] info = line.split(",");
+                if (info[0].equalsIgnoreCase(bookId)) { // Check if the exact title exists in the borrowed list
+                    isBorrowed = true;
+                    borrowedReader.close();
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "An error occurred while reading borrowed books: " + e.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // If the book is borrowed, show an error message
+        if (isBorrowed) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "The book is already borrowed and is not available: " + bookId, 
+                    "Book Not Available", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -39,7 +70,6 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         File tempFile = new File("books_temp.txt");
 
         boolean isRemoved = false;
-
         try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
@@ -68,7 +98,7 @@ public class BookRemoveWindow extends javax.swing.JFrame {
             }
         } else {
             tempFile.delete(); // Cleanup temp file
-            JOptionPane.showMessageDialog(this, bookId + " is not found in the library.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, bookId + " is not found in the library or currently borrowed.", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     /**
@@ -121,6 +151,33 @@ public class BookRemoveWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private String checkBorrowed (String title){
+        //This method checks if
+        String data;
+        Set<String> borrowedBooks = loadBorrowedBooks("Borrowed.txt");
+        
+        if (borrowedBooks.contains(title)) {
+            data = "BORROWED"; // Update availability to "NO" if the book is borrowed
+        } else {
+            data = "AVAILABLE"; // Update availability to "YES" if the book is available
+        }
+        
+        return data;
+    
+    }
+    
+    private Set<String> loadBorrowedBooks(String filePath) {
+        Set<String> borrowedBooks = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                borrowedBooks.add(line.trim()); // Assuming borrowed.txt contains one book title per line
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return borrowedBooks;
+    }
     private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
         // TODO add your handling code here:
         DASHBOARD dash = new DASHBOARD();
